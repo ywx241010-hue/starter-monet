@@ -257,10 +257,14 @@ function draw() {
 
 // ★★★★★★ 第 1 步 开始：把这里的 dab 函数整个换成 Qwen 写的版本 ★★★★★★
 function dab(g, x, y, col) {
-  // 临时版本：一个小方块
+  // 印象派的一笔：一个小椭圆，随机转一点角度，像画笔轻轻碰到画布
+  g.push();
+  g.translate(x, y);
+  g.rotate(random(-0.4, 0.4));
   g.noStroke();
   g.fill(col);
-  g.rect(x, y, 4, 4);
+  g.ellipse(0, 0, random(8, 16), random(3, 6));
+  g.pop();
 }
 // ★★★★★★ 第 1 步 结束 ★★★★★★
 
