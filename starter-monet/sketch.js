@@ -289,10 +289,13 @@ function waterColor(x, y, pal) {
 
 // ★★★★★★ 第 3 步 开始：把这里的 drawRipple 函数整个换成 Qwen 写的版本 ★★★★★★
 function drawRipple(r) {
-  // 临时版本：一个普通的圆圈
+  // 斜着看水面，涟漪是扁的椭圆：外圈清晰，内圈更淡，慢慢变大、变淡
   noFill();
   stroke(255, r.alpha);
-  circle(r.x, r.y, r.radius * 2);
+  strokeWeight(2);
+  ellipse(r.x, r.y, r.radius * 2, r.radius * 2 * 0.7);
+  stroke(255, r.alpha * 0.5);
+  ellipse(r.x, r.y, r.radius * 1.2, r.radius * 1.2 * 0.7);
   r.radius += 2;
   r.alpha -= 3;
 }
