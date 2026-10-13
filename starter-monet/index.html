@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>睡莲 — 用手势画莫奈的池塘</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- p5.js + p5.sound：先用国内镜像 npmmirror，打不开就自动换成 jsDelivr -->
+  <script src="https://registry.npmmirror.com/p5/1.11.10/files/lib/p5.min.js"></script>
+  <script>window.p5 || document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.min.js"><\/script>')</script>
+  <script src="https://registry.npmmirror.com/p5/1.11.10/files/lib/addons/p5.sound.min.js"></script>
+  <script>(window.p5 && window.p5.SoundFile) || document.write('<script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/addons/p5.sound.min.js"><\/script>')</script>
+  <!-- MediaPipe 手势模型在 sketch.js 里面加载 -->
+  <script src="sketch.js"></script>
+</head>
+<body>
+  <div id="intro">
+    <div class="card">
+      <h1>睡莲</h1>
+      <p class="sub">致敬 克劳德·莫奈《睡莲》系列（1897–1926）</p>
+      <ul>
+        <li>池塘由成千上万个小色点组成，就像印象派的画</li>
+        <li>☝️ <b>食指向上</b> → 在指尖滴一滴水，泛起涟漪</li>
+        <li>🖐 <b>张开手掌</b> → 一片睡莲叶</li>
+        <li>👍 <b>拇指向上</b> → 让最近的睡莲开花</li>
+        <li>✌️ <b>剪刀手</b> → 换一个时间：清晨 → 正午 → 日落 → 夜晚</li>
+        <li>✊ <b>握拳</b> → 清空所有睡莲</li>
+        <li>按键：<kbd>C</kbd> 清空 · <kbd>S</kbd> 保存 · <kbd>V</kbd> 摄像头 · <kbd>I</kbd> 手势信息</li>
+      </ul>
+      <button id="start">开始作画</button>
+    </div>
+  </div>
+  <div id="status"></div>
+</body>
+</html>
