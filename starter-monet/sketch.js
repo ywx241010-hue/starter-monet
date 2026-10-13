@@ -303,10 +303,26 @@ function drawRipple(r) {
 
 // ★★★★★★ 第 4 步 开始：把这里的 drawLily 函数整个换成 Qwen 写的版本 ★★★★★★
 function drawLily(p) {
-  // 临时版本：一个绿色的圆
+  // 睡莲叶：扁扁的绿色椭圆，带一个三角缺口；开花时中间开一朵粉色睡莲
+  push();
+  translate(p.x, p.y);
   noStroke();
-  fill(60, 120, 70);
-  circle(p.x, p.y, p.size * 0.5);
+  fill(60, 120, 70, 230);
+  arc(0, 0, p.size, p.size * 0.5, p.angle + 0.3, p.angle - 0.3 + TWO_PI, PIE);
+  fill(90, 160, 90, 150);
+  arc(0, 0, p.size * 0.6, p.size * 0.3, p.angle + 0.3, p.angle - 0.3 + TWO_PI, PIE);
+  if (p.flower) {
+    fill(240, 170, 190);
+    for (let i = 0; i < 8; i++) {
+      push();
+      rotate(TWO_PI / 8 * i);
+      ellipse(0, -p.size * 0.12, p.size * 0.1, p.size * 0.25);
+      pop();
+    }
+    fill(250, 220, 90);
+    circle(0, 0, p.size * 0.1);
+  }
+  pop();
 }
 // ★★★★★★ 第 4 步 结束 ★★★★★★
 
