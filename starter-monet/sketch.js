@@ -270,8 +270,20 @@ function dab(g, x, y, col) {
 
 // ★★★★★★ 第 2 步 开始：把这里的 waterColor 函数整个换成 Qwen 写的版本 ★★★★★★
 function waterColor(x, y, pal) {
-  // 临时版本：整个池塘只有一种颜色
-  return color(pal[1]);
+  // 用噪声把水面分成深、中、浅、高光四层颜色的色带
+  let n = noise(x * 0.004, y * 0.01, frameCount * 0.003);
+  let c;
+  if (n < 0.4) {
+    c = color(pal[0]);
+  } else if (n < 0.55) {
+    c = color(pal[1]);
+  } else if (n < 0.7) {
+    c = color(pal[2]);
+  } else {
+    c = color(pal[3]);
+  }
+  let k = random(0.85, 1.15); // 每一点随机亮一点或暗一点
+  return color(red(c) * k, green(c) * k, blue(c) * k, 200);
 }
 // ★★★★★★ 第 2 步 结束 ★★★★★★
 
