@@ -328,7 +328,51 @@ function drawLily(p) {
 
 // ★★★★★★ 第 5 步 开始：把这里的 onGesture 函数整个换成 Qwen 写的版本 ★★★★★★
 function onGesture(g, hand) {
-  // 临时版本：还没有手势动作
+  // 一个手势刚刚开始：根据手势做不同的事
+  let tip = hand.points[8];   // 食指指尖
+  let palm = hand.points[9];  // 手掌中心
+
+  if (g === "Pointing_Up") {
+    // 在指尖滴一滴水，泛起涟漪
+    ripples.push({ x: tip.x, y: tip.y, radius: 5, alpha: 255 });
+    playDrop();
+  }
+
+  if (g === "Open_Palm" && pads.length < MAX_PADS) {
+    // 在手掌中心放一片睡莲叶
+    pads.push({ x: palm.x, y: palm.y, size: random(60, 110), angle: random(TWO_PI), flower: false });
+  }
+
+  if (g === "Thumb_Up") {
+    // 先假设最近的睡莲叶距离是 150，然后一片一片比较，记住更近的那片
+    let nearest = null;
+    let best = 150;
+    for (let i = 0; i < pads.length; i++) {
+      let d = dist(pads[i].x, pads[i].y, palm.x, palm.y);
+      if (d < best) {
+        best = d;
+        nearest = pads[i];
+      }
+    }
+    if (nearest) {
+      nearest.flower = true; // 让最近的睡莲开花
+    } else {
+      // 附近没有睡莲叶，就直接放一片开花的
+      pads.push({ x: palm.x, y: palm.y, size: random(60, 110), angle: random(TWO_PI), flower: true });
+    }
+    playBloom();
+  }
+
+  if (g === "Victory") {
+    // 换一个时间：清晨 → 正午 → 日落 → 夜晚
+    timeIndex = (timeIndex + 1) % TIMES.length;
+    playTimeChord(timeIndex);
+  }
+
+  if (g === "Closed_Fist") {
+    // 清空所有睡莲
+    pads = [];
+  }
 }
 // ★★★★★★ 第 5 步 结束 ★★★★★★
 
